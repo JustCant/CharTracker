@@ -1,0 +1,104 @@
+initiative {
+  display                         : block;
+  position                        : sticky;
+  top                             : 5px;
+  z-index                         : 5;
+  width                           : 12%;
+  margin-left                     : auto;
+}
+
+table {
+  border-collapse                 : separate;
+  width                           : 100%;
+
+  thead {
+    tr {
+      display                     : flex;
+      flex-direction              : row;
+      justify-content             : space-between;
+      width                       : 100%;
+      th {
+        width                     : 50%;
+      }//end th
+    }//end tr
+  }//end thead
+
+  tbody {
+    width                         : 100%;
+    min-width                     : 165px;
+
+    tr {
+      border-top                  : @borderLight;
+      display                     : flex;
+      flex-direction              : row;
+      justify-content             : space-between;
+      width                       : 100%;
+      border-left                 : @borderHeavy;
+      border-right                : @borderHeavy;
+      &:first-of-type {
+        border-top                : @borderHeavy;
+        border-top-right-radius   : 5px;
+        border-top-left-radius    : 5px;
+      }
+      &:last-of-type {
+        border-bottom             : @borderHeavy;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius : 5px;
+      }
+      td {
+        width                     : 20%;
+        padding                   : 5px;
+        &:first-of-type {
+          width                   : 80%;
+        }//end first-of-type
+      }//end td
+    }//end tr
+  }//end tbody
+}//end table
+
+#initiativeHeader {
+  text-align                      : right;
+}
+
+#reset {
+  max-width                       : 142px;
+  display                         : block;
+  margin                          : 0 auto;
+}
+
+#dropdownMenuButton {
+  width                           : 80%;
+}
+
+.dropdown-menu {
+  padding                         : 0.5rem !important;
+  border                          : @borderHeavy;
+  border-radius                   : 10px;
+  width                           : 300px;
+  margin-top                      : 5px !important;
+}
+
+.initiative {
+  width                           : 100%;
+  max-width                       : 180px;
+}
+
+.initRow {
+  input {
+    width                         : 20px;
+    height                        : 24px;
+    text-align                    : center;
+    border                        : 1px solid #ced4da;
+    border-radius                 : .25rem;
+  }
+}
+
+.tdInit {
+  text-align                      : center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance            : none;
+    margin                        : 0;
+}

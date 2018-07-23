@@ -1,0 +1,25 @@
+<div class="btn-group dropleft initiative">
+  <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Initiative
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <table stop-propagation>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th id='initiativeHeader'>Initiative</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-class="{hero: char.type === 'hero', enemy: char.type === 'enemy'}" class="initRow" ng-repeat="char in appService.localChars | orderBy: '-initiative' track by char.id">
+          <td>{{char.name}}</td>
+          <td ng-show='char.init' class='tdInit' ng-click='char.init = false' init-input-focus>{{char.initiative}}</td>
+          <td ng-hide='char.init' class='tdInit'>
+            <input ng-blur="char.init = true" ng-change='setInitiative(char)' ng-model='char.initiative' ng-model-options="{ updateOn: 'blur' }" type="number" min='0' placeholder='#'>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button id='reset' class="btn btn-secondary" ng-click='reset()' stop-propagation>Reset</button>
+  </div>
+</div>

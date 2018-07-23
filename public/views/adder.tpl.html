@@ -1,0 +1,15 @@
+<div id='characterAdder'>
+    <div class='alert alert-warning popup' id="adderPopup">Must provide value</div>
+    <div id='charNameAdd'>
+      <input class='form-control' type="text" placeholder='Character Name' ng-model='appService.char.name'>
+    </div>
+    <div id='charHpAdd'>
+      <input class='form-control' type="number" placeholder='Character Hit Points' ng-model='appService.char.hitPoints'>
+    </div>
+    <div id='charHeroAdd'>
+      <button class='addHero btn btn-primary' ng-click='addChar("hero")' adder-validator>Add as Hero</button>
+    </div>
+    <div id='charEnemyAdd'>
+      <button class='addEnemy btn btn-dark' ng-click='addChar("enemy")' adder-validator>Add as Enemy</button>
+    </div>
+</div>

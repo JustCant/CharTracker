@@ -1,0 +1,428 @@
+#heroCopyCreator,
+#enemyCopyCreator {
+  display: flex;
+  flex-direction: row;
+  width: 65%;
+}
+
+.edit,
+.heroDelete,
+.enemyDelete {
+  padding: 0.375rem 0;
+}
+
+.copyInput {
+  width: 13%;
+  max-height: 38px;
+  align-self: center;
+  margin-left: 5px;
+  text-align: center;
+}
+
+.copy {
+  width:30% !important;
+}
+
+.popup {
+  z-index                         : 1;
+  margin                          : 5px;
+}
+
+.players,
+.enemies {
+  margin-top                      : 3px;
+  border                          : @borderHeavy;
+  border-radius                   : 10px;
+  &:last-of-type {
+    margin-bottom                 : 5vh;
+  }
+}
+
+.pcRow.headerRow {
+  background-color                : @heroColor;
+  color                           : white;
+}
+.enemyRow.headerRow {
+  background-color                : @enemyColor;
+  color                           : white;
+}
+
+.conditionWrap,
+.bodyRow {
+  background-color                : @charColor;
+}
+
+.conditionWrap {
+  display                         : none;
+}
+
+.charAddBg {
+  background-color                : white;
+  padding                         : 0;
+  border-radius                   : 10px;
+}
+
+.wrapper {
+  display                         : flex;
+  flex-direction                  : column;
+  justify-content                 : space-around;
+}
+
+.btn {
+  width                           : 96%;
+  margin                          : 2px;
+}
+
+#charNameAdd {
+  grid-column-start               : 1;
+  grid-column-end                 : 3;
+  grid-row-start                  : 1;
+  grid-row-end                    : 2;
+}
+
+#charHpAdd {
+  grid-column-start               : 1;
+  grid-column-end                 : 3;
+  grid-row-start                  : 2;
+  grid-row-end                    : 3;
+}
+
+#charHeroAdd {
+  grid-column-start               : 1;
+  grid-column-end                 : 2;
+  grid-row-start                  : 3;
+  grid-row-end                    : 4;
+}
+
+#charEnemyAdd {
+  grid-column-start               : 2;
+  grid-column-end                 : 3;
+  grid-row-start                  : 3;
+  grid-row-end                    : 4;
+}
+
+#columnNames {
+  display                         : none;
+}
+
+#columnNameHero,
+#columnNameEnemy {
+  text-align                      : center;
+}
+
+#heroMissingPopup,
+#heroNoNumPopup,
+#enemyMissingPopup,
+#enemyNoNumPopup,
+#heroClearAllPopup,
+#enemyClearAllPopup {
+  background   : @popupBG;
+  border-radius: .25rem;
+  border-color : @popupBorder;
+  padding      : .75rem 1.25rem;
+  color        : @popupFont;
+  z-index      : 5;
+}
+
+#heroCharBar,
+#enemyCharBar {
+  display        : flex;
+  flex-direction : row;
+  justify-content: space-between;
+}
+
+.clearButtons {
+  display       : flex;
+  flex-direction: row;
+  width         : 70%;
+  margin        : 0 auto;
+}
+
+.clearBtn {
+  width: 19%;
+}
+
+.change {
+  display        : flex;
+  flex-direction : row;
+  justify-content: center;
+}
+
+.dec,
+.inc {
+  width                           : 100%;
+}
+
+.incCell,
+.decCell {
+  display                         : grid;
+  grid-gap                        : 1%;
+  grid-template-columns           : 50% 50%;
+  grid-template-rows              : 50% 50%;
+}
+
+.incOne,
+.decOne {
+  grid-column-start               : 1;
+  grid-column-end                 : 2;
+  grid-row-start                  : 1;
+  grid-row-end                    : 2;
+}
+
+.incTwo,
+.decTwo {
+  grid-column-start               : 2;
+  grid-column-end                 : 3;
+  grid-row-start                  : 1;
+  grid-row-end                    : 2;
+}
+
+.incThree,
+.decThree {
+  grid-column-start               : 1;
+  grid-column-end                 : 2;
+  grid-row-start                  : 2;
+  grid-row-end                    : 3;
+}
+
+.incFour,
+.decFour {
+  grid-column-start               : 2;
+  grid-column-end                 : 3;
+  grid-row-start                  : 2;
+  grid-row-end                    : 3;
+}
+
+.pcRow,
+.enemyRow {
+  display                         : flex;
+  flex-direction                  : row;
+
+  &.headerRow {
+    display                       : none;
+  }
+
+  &.bodyRow {
+    flex-direction                : column;
+  }
+}
+
+.heroNameInput,
+.enemyNameInput,
+.heroHpInput,
+.enemyHpInput {
+  width                           : 100%;
+}
+
+.conditions {
+  padding                         : 0;
+  margin                          : 2px 0;
+  display                         : flex;
+  flex-direction                  : row;
+  justify-content                 : space-around;
+  flex-wrap                       : wrap;
+}
+
+.condition {
+  cursor                          : pointer;
+  list-style                      : none;
+  border-radius                   : 50%;
+  transition                      : 0.2s ease;
+  opacity                         : 0.5;
+  width                           : 5.8%;
+
+  &:hover {
+    transform                     : scale(2);
+    opacity                       : 1;
+  }
+
+  img {
+    border-radius                 : 50%;
+    width                         : 100%;
+    height                        : auto;
+  }
+}//end condition
+
+.conditionWrap {
+  width                           : 100%;
+  border-bottom-left-radius       : 6px;
+  border-bottom-right-radius      : 6px;
+  border-top                      : @borderLight;
+  border-left                     : @borderLight;
+  border-right                    : @borderLight;
+  border-bottom                   : @borderLight;
+}
+
+.headerRow {
+  border-top-right-radius         : 10px;
+  border-top-left-radius          : 10px;
+  border-top                      : @borderMedium;
+  border-right                    : @borderMedium;
+  border-left                     : @borderMedium;
+  max-height                      : 62px;
+}
+
+.playerWrap,
+.enemyWrap {
+  margin                          : 0 auto;
+  width                           : 80%;
+  display                         : flex;
+  flex-direction                  : column;
+  border-top-right-radius         : 10px;
+  border-top-left-radius          : 10px;
+}
+
+.td {
+  border                          : @borderLight;
+  padding                         : 5px;
+
+  input {
+    font-size                     : 0.85rem;
+    font-weight                   : bold;
+  }
+
+  &.name,
+  &.hp {
+    display                       : flex;
+    justify-content               : center;
+    flex-direction                : column;
+
+    p {
+      font-size                   : 1.4rem;
+      font-weight                 : bold;
+      align-self                  : center;
+      text-align                  : center;
+      margin                      : 0;
+
+      &.maxHp,
+      &.armorClass {
+        font-size                 : 0.75rem;
+      }
+    }
+  }
+}//end td
+
+.td.name p {
+  color                           : white;
+}
+
+.th {
+  border                          : @borderLight;
+  padding                         : 5px;
+  cursor                          : pointer;
+  display                         : flex;
+  justify-content                 : center;
+
+  &.name {
+    border-top-left-radius        : 5px;
+    border-bottom-left-radius     : 5px;
+  }
+
+  &.inc {
+    border-top-right-radius       : 5px;
+    border-bottom-right-radius    : 5px;
+  }
+
+  &.name,
+  &.hp {
+    p {
+      font-weight                 : bold;
+      font-size                   : 1.2rem;
+    }
+  }
+
+  &.hp p {
+    font-size                     : 1rem;
+  }
+
+  &.change,
+  &.dec,
+  &.inc {
+    p {
+      font-weight                 : bold;
+      font-size                   : 1.5rem;
+    }
+  }
+  p {
+    align-self                    : center;
+    text-align                    : center;
+    margin                        : 0;
+  }
+}//end th
+
+.activated {
+  opacity                         : 1;
+}
+
+.pcRow.bodyRow,
+.enemyRow.bodyRow {
+  border-top                      : @borderMedium;
+}
+
+.pcRow.bodyRow {
+  .td {
+    &.name {
+      background-color            : @heroColor;
+    }
+  }
+}
+
+.enemyRow.bodyRow {
+  .td {
+    &.name {
+      background-color            : @enemyColor;
+    }
+  }
+}
+
+.pcRow.headerRow,
+.enemyRow.headerRow {
+  border                          : @borderMedium;
+  border-radius                   : 10px;
+}
+
+.progress {
+  border-left                     : @borderLight;
+  border-right                    : @borderLight;
+  border-bottom-left-radius       : 0px;
+  border-bottom-right-radius      : 0px;
+}
+
+.heroDeleteConfirm,
+.enemyDeleteConfirm {
+  display                         : flex;
+  flex-direction                  : column;
+  border-radius                   : 5px;
+  padding                         : 5px;
+
+  div {
+    display                       : flex;
+    flex-direction                : row;
+    width                         : 70%;
+    margin                        : 0 auto;
+  }
+}
+
+.greenBar {
+   background-color               : @greenBar;
+}
+
+.yellowBar {
+  background-color                : @yellowBar;
+  color                           : black;
+}
+
+.redBar {
+  background-color                : @redBar;
+  color                           : white;
+}
+
+.hero {
+  background-color                : @initHero;
+  color                           : white;
+}
+
+.enemy {
+  background-color                : @initEnemy;
+  color                           : white;
+}

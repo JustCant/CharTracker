@@ -1,0 +1,62 @@
+#characterAdder {
+  display                         : grid;
+  grid-template-columns           : 50% 50%;
+  grid-template-rows              : 33.3% 33.3% 33.3%;
+  width                           : 70%;
+  margin                          : 10px auto 0 auto;
+  div {
+    display                       : flex;
+    padding                       : 5px;
+    input {
+      align-self                  : center;
+    }//end input
+  }//end div
+}//end characterAdder
+
+#charNameAdd {
+  border-top                      : @borderHeavy;
+  border-right                    : @borderLight;
+  border-bottom                   : @borderHeavy;
+  border-left                     : @borderHeavy;
+  border-top-left-radius          : 10px;
+  border-bottom-left-radius       : 10px;
+}
+
+#charHpAdd {
+  border-top                      : @borderHeavy;
+  border-right                    : @borderLight;
+  border-bottom                   : @borderHeavy;
+  border-left                     : @borderLight;
+}
+
+#charHeroAdd {
+  border-top                      : @borderHeavy;
+  border-right                    : @borderLight;
+  border-bottom                   : @borderHeavy;
+  border-left                     : @borderLight;
+}
+
+#charEnemyAdd {
+  border-top                      : @borderHeavy;
+  border-right                    : @borderHeavy;
+  border-bottom                   : @borderHeavy;
+  border-left                     : @borderLight;
+}
+
+#charNameAdd,
+#charHpAdd,
+#charHeroAdd,
+#charEnemyAdd,
+{
+  background-color                : white;
+}
+
+#charEnemyAdd {
+  border-top-right-radius         : 10px;
+  border-bottom-right-radius      : 10px;
+}
+
+#title,
+#newCharHeader{
+  text-align                      : center;
+}

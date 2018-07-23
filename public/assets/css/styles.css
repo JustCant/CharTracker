@@ -1,0 +1,597 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(80, 80, 80, 0.9);
+  height: 8vh;
+  border-bottom: 5px solid rgba(182, 182, 182, 0.9);
+  color: white;
+}
+body {
+  background-image: url('../assets/img/dndBg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+h2 {
+  color: white;
+}
+#title {
+  margin-left: 30px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+initiative {
+  display: block;
+  position: sticky;
+  top: 5px;
+  z-index: 5;
+  width: 12%;
+  margin-left: auto;
+}
+table {
+  border-collapse: separate;
+  width: 100%;
+}
+table thead tr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+table thead tr th {
+  width: 50%;
+}
+table tbody {
+  width: 100%;
+  min-width: 165px;
+}
+table tbody tr {
+  border-top: solid black 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  border-left: solid black 5px;
+  border-right: solid black 5px;
+}
+table tbody tr:first-of-type {
+  border-top: solid black 5px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+table tbody tr:last-of-type {
+  border-bottom: solid black 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+table tbody tr td {
+  width: 20%;
+  padding: 5px;
+}
+table tbody tr td:first-of-type {
+  width: 80%;
+}
+#initiativeHeader {
+  text-align: right;
+}
+#reset {
+  max-width: 142px;
+  display: block;
+  margin: 0 auto;
+}
+#dropdownMenuButton {
+  width: 80%;
+}
+.dropdown-menu {
+  padding: 0.5rem !important;
+  border: solid black 5px;
+  border-radius: 10px;
+  width: 300px;
+  margin-top: 5px !important;
+}
+.initiative {
+  width: 100%;
+  max-width: 180px;
+}
+.initRow input {
+  width: 20px;
+  height: 24px;
+  text-align: center;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
+.tdInit {
+  text-align: center;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#characterAdder {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 33.3% 33.3% 33.3%;
+  width: 70%;
+  margin: 10px auto 0 auto;
+}
+#characterAdder div {
+  display: flex;
+  padding: 5px;
+}
+#characterAdder div input {
+  align-self: center;
+}
+#charNameAdd {
+  border-top: solid black 5px;
+  border-right: solid black 2px;
+  border-bottom: solid black 5px;
+  border-left: solid black 5px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+#charHpAdd {
+  border-top: solid black 5px;
+  border-right: solid black 2px;
+  border-bottom: solid black 5px;
+  border-left: solid black 2px;
+}
+#charHeroAdd {
+  border-top: solid black 5px;
+  border-right: solid black 2px;
+  border-bottom: solid black 5px;
+  border-left: solid black 2px;
+}
+#charEnemyAdd {
+  border-top: solid black 5px;
+  border-right: solid black 5px;
+  border-bottom: solid black 5px;
+  border-left: solid black 2px;
+}
+#charNameAdd,
+#charHpAdd,
+#charHeroAdd,
+#charEnemyAdd {
+  background-color: white;
+}
+#charEnemyAdd {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+#title,
+#newCharHeader {
+  text-align: center;
+}
+#heroCopyCreator,
+#enemyCopyCreator {
+  display: flex;
+  flex-direction: row;
+  width: 65%;
+}
+.edit,
+.heroDelete,
+.enemyDelete {
+  padding: 0.375rem 0;
+}
+.copyInput {
+  width: 13%;
+  max-height: 38px;
+  align-self: center;
+  margin-left: 5px;
+  text-align: center;
+}
+.copy {
+  width: 30% !important;
+}
+.popup {
+  z-index: 1;
+  margin: 5px;
+}
+.players,
+.enemies {
+  margin-top: 3px;
+  border: solid black 5px;
+  border-radius: 10px;
+}
+.players:last-of-type,
+.enemies:last-of-type {
+  margin-bottom: 5vh;
+}
+.pcRow.headerRow {
+  background-color: rgba(0, 105, 217, 0.5);
+  color: white;
+}
+.enemyRow.headerRow {
+  background-color: rgba(35, 39, 43, 0.5);
+  color: white;
+}
+.conditionWrap,
+.bodyRow {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.conditionWrap {
+  display: none;
+}
+.charAddBg {
+  background-color: white;
+  padding: 0;
+  border-radius: 10px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.btn {
+  width: 96%;
+  margin: 2px;
+}
+#charNameAdd {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+#charHpAdd {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+#charHeroAdd {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+#charEnemyAdd {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+#columnNames {
+  display: none;
+}
+#columnNameHero,
+#columnNameEnemy {
+  text-align: center;
+}
+#heroMissingPopup,
+#heroNoNumPopup,
+#enemyMissingPopup,
+#enemyNoNumPopup,
+#heroClearAllPopup,
+#enemyClearAllPopup {
+  background: #fff3cd;
+  border-radius: .25rem;
+  border-color: #ffeeba;
+  padding: .75rem 1.25rem;
+  color: #856404;
+  z-index: 5;
+}
+#heroCharBar,
+#enemyCharBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.clearButtons {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: 0 auto;
+}
+.clearBtn {
+  width: 19%;
+}
+.change {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.dec,
+.inc {
+  width: 100%;
+}
+.incCell,
+.decCell {
+  display: grid;
+  grid-gap: 1%;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+}
+.incOne,
+.decOne {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.incTwo,
+.decTwo {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.incThree,
+.decThree {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.incFour,
+.decFour {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.pcRow,
+.enemyRow {
+  display: flex;
+  flex-direction: row;
+}
+.pcRow.headerRow,
+.enemyRow.headerRow {
+  display: none;
+}
+.pcRow.bodyRow,
+.enemyRow.bodyRow {
+  flex-direction: column;
+}
+.heroNameInput,
+.enemyNameInput,
+.heroHpInput,
+.enemyHpInput {
+  width: 100%;
+}
+.conditions {
+  padding: 0;
+  margin: 2px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.condition {
+  cursor: pointer;
+  list-style: none;
+  border-radius: 50%;
+  transition: 0.2s ease;
+  opacity: 0.5;
+  width: 5.8%;
+}
+.condition:hover {
+  transform: scale(2);
+  opacity: 1;
+}
+.condition img {
+  border-radius: 50%;
+  width: 100%;
+  height: auto;
+}
+.conditionWrap {
+  width: 100%;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-top: solid black 2px;
+  border-left: solid black 2px;
+  border-right: solid black 2px;
+  border-bottom: solid black 2px;
+}
+.headerRow {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top: solid black 4px;
+  border-right: solid black 4px;
+  border-left: solid black 4px;
+  max-height: 62px;
+}
+.playerWrap,
+.enemyWrap {
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.td {
+  border: solid black 2px;
+  padding: 5px;
+}
+.td input {
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+.td.name,
+.td.hp {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.td.name p,
+.td.hp p {
+  font-size: 1.4rem;
+  font-weight: bold;
+  align-self: center;
+  text-align: center;
+  margin: 0;
+}
+.td.name p.maxHp,
+.td.hp p.maxHp,
+.td.name p.armorClass,
+.td.hp p.armorClass {
+  font-size: 0.75rem;
+}
+.td.name p {
+  color: white;
+}
+.th {
+  border: solid black 2px;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+.th.name {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.th.inc {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.th.name p,
+.th.hp p {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.th.hp p {
+  font-size: 1rem;
+}
+.th.change p,
+.th.dec p,
+.th.inc p {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.th p {
+  align-self: center;
+  text-align: center;
+  margin: 0;
+}
+.activated {
+  opacity: 1;
+}
+.pcRow.bodyRow,
+.enemyRow.bodyRow {
+  border-top: solid black 4px;
+}
+.pcRow.bodyRow .td.name {
+  background-color: rgba(0, 105, 217, 0.5);
+}
+.enemyRow.bodyRow .td.name {
+  background-color: rgba(35, 39, 43, 0.5);
+}
+.pcRow.headerRow,
+.enemyRow.headerRow {
+  border: solid black 4px;
+  border-radius: 10px;
+}
+.progress {
+  border-left: solid black 2px;
+  border-right: solid black 2px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.heroDeleteConfirm,
+.enemyDeleteConfirm {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 5px;
+}
+.heroDeleteConfirm div,
+.enemyDeleteConfirm div {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: 0 auto;
+}
+.greenBar {
+  background-color: #28a745;
+}
+.yellowBar {
+  background-color: #ffc107;
+  color: black;
+}
+.redBar {
+  background-color: #dc3545;
+  color: white;
+}
+.hero {
+  background-color: #0069d9;
+  color: white;
+}
+.enemy {
+  background-color: #23272b;
+  color: white;
+}
+@media (min-width: 700px) {
+  .wrapper {
+    flex-direction: row;
+  }
+  player,
+  enemy {
+    width: 47%;
+  }
+  .playerWrap,
+  .enemyWrap {
+    width: 95%;
+  }
+  #columnNameHero,
+  #columnNameEnemy {
+    display: none;
+  }
+  #columnNames {
+    display: flex;
+  }
+  .pcRow.bodyRow,
+  .enemyRow.bodyRow {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+@media (min-width: 850px) {
+  #characterAdder {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: sticky;
+    top: 5px;
+    z-index: 2;
+  }
+  .conditionWrap {
+    display: block;
+  }
+}
+@media (min-width: 1000px) {
+  .td.name p,
+  .td.hp p {
+    color: black;
+  }
+  .hp {
+    width: 10%;
+  }
+  .name,
+  .change {
+    width: 15%;
+  }
+  .dec,
+  .inc {
+    width: 30%;
+  }
+  .pcRow.headerRow,
+  .enemyRow.headerRow {
+    display: flex;
+  }
+  .pcRow.bodyRow,
+  .enemyRow.bodyRow {
+    flex-direction: row;
+  }
+  .pcRow.bodyRow .td.name {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  .enemyRow.bodyRow .td.name {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  .change {
+    flex-direction: column;
+  }
+}
