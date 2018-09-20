@@ -165,6 +165,36 @@ input::-webkit-inner-spin-button {
 #newCharHeader {
   text-align: center;
 }
+@-webkit-keyframes whiteGlow {
+  0% {
+    -webkit-box-shadow: 0px 0px 0px 0px #fff;
+  }
+  50% {
+    -webkit-box-shadow: 0px 0px 10px 0.5px #fff;
+  }
+  100% {
+    -webkit-box-shadow: 0px 0px 20px 1px #fff;
+  }
+}
+@-webkit-keyframes redGlow {
+  0% {
+    -webkit-box-shadow: 0px 0px 0px 0px #ff0000;
+  }
+  50% {
+    -webkit-box-shadow: 0px 0px 10px 0.5px #ff0000;
+  }
+  100% {
+    -webkit-box-shadow: 0px 0px 20px 1px #ff0000;
+  }
+}
+.whiteGlow {
+  -webkit-animation: whiteGlow 0.25s ease-out;
+  animation-fill-mode: forwards;
+}
+.redGlow {
+  -webkit-animation: redGlow 0.25s ease-out;
+  animation-fill-mode: forwards;
+}
 #heroCopyCreator,
 #enemyCopyCreator {
   display: flex;
@@ -368,7 +398,7 @@ input::-webkit-inner-spin-button {
   width: 5.8%;
 }
 .condition:hover {
-  transform: scale(2);
+  transform: scale(1.2);
   opacity: 1;
 }
 .condition img {
@@ -523,6 +553,14 @@ input::-webkit-inner-spin-button {
 .enemy {
   background-color: #23272b;
   color: white;
+}
+.advantage {
+  -webkit-animation: whiteGlow 0.25s ease-out;
+  animation-fill-mode: forwards;
+}
+.disadvantage {
+  -webkit-animation: redGlow 0.25s ease-out;
+  animation-fill-mode: forwards;
 }
 @media (min-width: 700px) {
   .wrapper {

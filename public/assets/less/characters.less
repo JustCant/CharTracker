@@ -1,3 +1,37 @@
+@-webkit-keyframes whiteGlow {
+  0% {
+    -webkit-box-shadow: 0px 0px 0px 0px #fff;
+  }
+  50% {
+    -webkit-box-shadow: 0px 0px 10px 0.5px #fff;
+  }
+  100% {
+    -webkit-box-shadow: 0px 0px 20px 1px #fff;
+  }
+}
+
+@-webkit-keyframes redGlow {
+  0% {
+    -webkit-box-shadow: 0px 0px 0px 0px #ff0000;
+  }
+  50% {
+    -webkit-box-shadow: 0px 0px 10px 0.5px #ff0000;
+  }
+  100% {
+    -webkit-box-shadow: 0px 0px 20px 1px #ff0000;
+  }
+}
+
+.whiteGlow {
+  -webkit-animation: whiteGlow 0.25s ease-out;
+  animation-fill-mode: forwards;
+}
+
+.redGlow {
+  -webkit-animation: redGlow 0.25s ease-out;
+  animation-fill-mode: forwards;
+}
+
 #heroCopyCreator,
 #enemyCopyCreator {
   display: flex;
@@ -232,7 +266,7 @@
   width                           : 5.8%;
 
   &:hover {
-    transform                     : scale(2);
+    transform                     : scale(1.2);
     opacity                       : 1;
   }
 
@@ -425,4 +459,12 @@
 .enemy {
   background-color                : @initEnemy;
   color                           : white;
+}
+
+.advantage {
+  .whiteGlow;
+}
+
+.disadvantage {
+  .redGlow;
 }

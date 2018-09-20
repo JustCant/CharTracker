@@ -18,14 +18,12 @@ app.controller('enemyCtrl', ['$scope', 'appService', function($scope, appService
           appService.char.name       = charArray[0].name + ' copy ' + i;
           appService.char.type       = charArray[0].type;
           appService.char.hitPoints  = charArray[0].hitPoints;
-          appService.char.show       = false;
-          appService.char.popupShow  = false;
           appService.char.armorClass = null;
           appService.char.initiative = null;
           appService.char.maxHp = charArray[0].hitPoints;
           appService.enemyChars.push(appService.char);
           appService.localChars.push(appService.char);
-          localStorage.setItem(`${appService.char.id}`, JSON.stringify(appService.char));          
+          localStorage.setItem(`${appService.char.id}`, JSON.stringify(appService.char));
           appService.char = {};
         }
       }
@@ -152,7 +150,13 @@ app.controller('enemyCtrl', ['$scope', 'appService', function($scope, appService
         char.stunned = !char.stunned;
         break;
       case 16:
-        char.unconcious = !char.unconcious;
+        char.unconscious = !char.unconscious;
+        break;
+      case 17:
+        char.advantage = !char.advantage;
+        break;
+      case 18:
+        char.disadvantage = !char.disadvantage;
         break;
     }//end switch
 

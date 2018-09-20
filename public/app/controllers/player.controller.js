@@ -18,15 +18,13 @@ app.controller('playerCtrl', ['$scope', 'appService', function($scope, appServic
           appService.char.name       = charArray[0].name + ' copy ' + i;
           appService.char.type       = charArray[0].type;
           appService.char.hitPoints  = charArray[0].hitPoints;
-          appService.char.show       = false;
-          appService.char.popupShow  = false;
           appService.char.armorClass = charArray[0].armorClass;
-          appService.char.initiative = null;
           appService.char.maxHp      = charArray[0].hitPoints;
+          appService.char.initiative = null;
           appService.playerChars.push(appService.char);
           appService.localChars.push(appService.char);
           localStorage.setItem(`${appService.char.id}`, JSON.stringify(appService.char));
-          appService.char = {};
+          appService.char            = {};
         }
       }
     } else if (!char){
@@ -102,6 +100,7 @@ app.controller('playerCtrl', ['$scope', 'appService', function($scope, appServic
 
   //This funciton will activate/deactivate a condition for a character
   $scope.activate = function(char, condition) {
+
     switch(condition) {
       case 0:
         char.blinded = !char.blinded;
@@ -152,7 +151,13 @@ app.controller('playerCtrl', ['$scope', 'appService', function($scope, appServic
         char.stunned = !char.stunned;
         break;
       case 16:
-        char.unconcious = !char.unconcious;
+        char.unconscious = !char.unconscious;
+        break;
+      case 17:
+        char.advantage = !char.advantage;
+        break;
+      case 18:
+        char.disadvantage = !char.disadvantage;
         break;
     }//end switch
 
@@ -165,4 +170,8 @@ app.controller('playerCtrl', ['$scope', 'appService', function($scope, appServic
     charArray.splice(index, 1);
     localStorage.removeItem(`${char.id}`);
   };//end delete
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
 }]);
