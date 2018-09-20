@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" ng-app='hpTracker'>
   <head>
     <meta charset="UTF-8">
@@ -7,41 +7,276 @@
     <title>Character Tracker</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel='stylesheet' href='public/build/styles.min.css'>
+    <link rel="shortcut icon" type="image/x-icon" href="../public/assets/img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../public/assets/img/favicon.ico">
   </head>
-  <body>
+  <body ng-controller='characterCtrl'>
     <header>
       <h1 id='title'>Character Tracker</h1>
     </header>
     <br/>
-    <characters></characters>
+    <characters>
+
+      <initiative ng-controller='initiativeCtrl'>
+        <div class="btn-group dropleft initiative">
+          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Initiative
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <table stop-propagation>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th id='initiativeHeader'>Initiative</th>
+                </tr>
+              </thead> 
+              <tbody>
+                <tr ng-class="{hero: char.type === 'hero', enemy: char.type === 'enemy'}" class="initRow" ng-repeat="char in appService.localChars | orderBy: '-initiative' track by char.id">
+                  <td>{{char.name}}</td>
+                  <td ng-show='char.init' class='tdInit' ng-click='char.init = false' init-input-focus>{{char.initiative}}</td>
+                  <td ng-hide='char.init' class='tdInit'>
+                    <input ng-blur="char.init = true" ng-change='setInitiative(char)' ng-model='char.initiative' ng-model-options="{ updateOn: 'blur' }" type="number" min='0' placeholder='#'>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button id='reset' class="btn btn-secondary" ng-click='reset()' stop-propagation>Reset</button>
+          </div>
+        </div>
+      </initiative>
+
+      <h2 id='newCharHeader'>Create a new character</h2>
+
+      <adder ng-controller='adderCtrl'>
+        <div id='characterAdder'>
+            <div class='alert alert-warning popup' id="adderPopup">Must provide value</div>
+            <div id='charNameAdd'>
+              <input class='form-control' type="text" placeholder='Character Name' ng-model='appService.char.name'>
+            </div>
+            <div id='charHpAdd'>
+              <input class='form-control' type="number" placeholder='Character Hit Points' ng-model='appService.char.hitPoints'>
+            </div>
+            <div id='charHeroAdd'>
+              <button class='addHero btn btn-primary' ng-click='addChar("hero")' adder-validator>Add as Hero</button>
+            </div>
+            <div id='charEnemyAdd'>
+              <button class='addEnemy btn btn-dark' ng-click='addChar("enemy")' adder-validator>Add as Enemy</button>
+            </div>
+        </div>
+      </adder>
+
+      <br/>
+      <div id='columnNames' class="wrapper">
+        <h2>Heroes</h2>
+        <h2>Enemies</h2>
+      </div>
+      <div class='wrapper'>
+        <br/>
+
+        <player ng-controller='playerCtrl'>
+          <div class="playerWrap">
+            <h2 id='columnNameHero'>Heroes</h2>
+            <br/>
+
+            <div id='heroCharBar'>
+              <div id='heroCopyCreator'>
+                <button class='btn btn-info copy heroCopy' ng-click='addHeroCopies(heroesToAdd, appService.playerChars)' character-copy-validator>Add copies</button>
+                <input id='heroCopyInput' class='copyInput form-control' type="number" ng-model='heroesToAdd' placeholder='#'>
+                <div id='heroNoNumPopup'>Must enter a number of copies to be made</div>
+                <div id='heroMissingPopup' class='popup'>No hero to copy</div>
+              </div>
+
+              <button id='heroClearBtn' class='btn btn-warning clearBtn' clear-confirm>Clear All</button>
+              <div id='heroClearAllPopup' class='popup'>
+                <span>Are you sure that you want to clear all heroes?</span>
+                <div class='clearButtons'>
+                  <button class='btn btn-secondary' ng-click='clearAllHeroes()' hide-clear-popup>Clear</button>
+                  <button class='btn btn-warning' hide-clear-popup>Cancel</button>
+                </div>
+              </div>
+            </div>
+
+            <div class='pcRow headerRow'>
+              <div class='th name'><p>PC Name</p></div>
+              <div class='th hp'><p>Hit Points</p></div>
+              <div class='th change'><p>Alter</p></div>
+              <div class='th dec'><p>Decrease</p></div>
+              <div class='th inc'><p>Increase</p></div>
+            </div>
+            <div class='players' ng-repeat='char in appService.playerChars track by char.id'>
+              <div class="progress">
+                <div class="progress-bar healthBar" ng-class='{greenBar: (char.hitPoints / char.maxHp) > .65, yellowBar: (char.hitPoints / char.maxHp) <= .65, redBar: (char.hitPoints / char.maxHp) <= .3}' role="progressbar" style="width: {{(char.hitPoints / char.maxHp) * 100}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{((char.hitPoints / char.maxHp) * 100).toFixed(0)}}%</div>
+              </div>
+              <div class='pcRow bodyRow'>
+                <div class='alert alert-warning heroNumberPopup popup'>Must provide value</div>
+                <div class='td name'>
+                  <p char-input-focus>{{char.name}}</p>
+                  <input class='form-control heroNameInput' ng-blur='checkValidName(char)' type="text" placeholder={{char.name}} ng-model='char.name' char-input-blur>
+                  <div class='alert alert-warning heroNamePopup popup'>Must enter a name</div>
+                  <p char-input-focus class='armorClass'>AC: <span>{{char.armorClass}}</span></p>
+                  <input class='form-control heroAcInput' ng-blur='checkValidAc(char)' type="number" placeholder={{char.armorClass}} ng-model='char.armorClass' char-input-blur>
+                </div>
+                <div class='td hp'>
+                  <p char-input-focus class='maxHp'>Max: {{char.maxHp}}</p>
+                  <input class='form-control heroMaxHpInput' ng-blur='checkValidMaxHp(char)' type="number" placeholder={{char.maxHp}} ng-model='char.maxHp' char-input-blur>
+                  <p char-input-focus>{{char.hitPoints}}</p>
+                  <input class='form-control heroHpInput' ng-blur='checkValidHp(char)' type="number" placeholder={{char.hitPoints}} ng-model='char.hitPoints' char-input-blur>
+                </div>
+                <div class='td change'>
+                    <button class='edit btn btn-secondary' edit-all>Edit All</button>
+                    <button class='edit btn btn-primary' ng-click="save(char)" save-all save-validation>Save</button>
+                    <button class='heroDelete btn btn-warning' delete-confirm>Delete</button>
+                    <div class='heroDeleteConfirm alert-warning popup'>
+                      <span>Are you sure you want to delete this character?</span>
+                      <div>
+                        <button class='btn btn-secondary' ng-click='deleteHero(char, appService.playerChars)'>Ok</button>
+                        <button class='btn btn-danger' hide-delete-popup>Cancel</button>
+                      </div>
+                    </div>
+                </div>
+                <div class='td dec decCell'>
+                    <button class='btn btn-danger decOne' ng-click='decrement(char, 1)'>1</button>
+                    <button class='btn btn-danger decTwo' ng-click='decrement(char, 5)'>5</button>
+                    <button class='btn btn-danger decThree' ng-click='decrement(char, 10)'>10</button>
+                    <button class='btn btn-danger decFour' ng-click='decrement(char, 20)'>20</button>
+                </div>
+                <div class='td inc incCell'>
+                    <button class='btn btn-success incOne' ng-click='increment(char, 1)'>1</button>
+                    <button class='btn btn-success incTwo' ng-click='increment(char, 5)'>5</button>
+                    <button class='btn btn-success incThree' ng-click='increment(char, 10)'>10</button>
+                    <button class='btn btn-success incFour' ng-click='increment(char, 20)'>20</button>
+                </div>
+              </div>
+              <div class='conditionWrap'>
+                <ul class='conditions'>
+                  <li class="condition" ng-click='activate(char, 0)' ng-class='{activated: char.blinded}'><img src="public/assets/img/tokens/blinded.png" alt="blinded"></li>
+                  <li class="condition" ng-click='activate(char, 1)' ng-class='{activated: char.charmed}'><img src="public/assets/img/tokens/charmed.png" alt="charmed"></li>
+                  <li class="condition" ng-click='activate(char, 2)' ng-class='{activated: char.deafened}'><img src="public/assets/img/tokens/deafened.png" alt="deafened"></li>
+                  <li class="condition" ng-click='activate(char, 3)' ng-class='{activated: char.dodge}'><img src="public/assets/img/tokens/dodge.png" alt="dodge"></li>
+                  <li class="condition" ng-click='activate(char, 4)' ng-class='{activated: char.exhausted}'><img src="public/assets/img/tokens/exhausted.png" alt="exhausted"></li>
+                  <li class="condition" ng-click='activate(char, 5)' ng-class='{activated: char.frightened}'><img src="public/assets/img/tokens/frightened.png" alt="frightened"></li>
+                  <li class="condition" ng-click='activate(char, 6)' ng-class='{activated: char.grappled}'><img src="public/assets/img/tokens/grappled.png" alt="grappled"></li>
+                  <li class="condition" ng-click='activate(char, 7)' ng-class='{activated: char.hidden}'><img src="public/assets/img/tokens/hidden.png" alt="hidden"></li>
+                  <li class="condition" ng-click='activate(char, 8)' ng-class='{activated: char.incapacitated}'><img src="public/assets/img/tokens/incapacitated.png" alt="incapacitated"></li>
+                  <li class="condition" ng-click='activate(char, 9)' ng-class='{activated: char.invisible}'><img src="public/assets/img/tokens/invisible.png" alt="invisible"></li>
+                  <li class="condition" ng-click='activate(char, 10)' ng-class='{activated: char.paralyzed}'><img src="public/assets/img/tokens/paralyzed.png" alt="paralyzed"></li>
+                  <li class="condition" ng-click='activate(char, 11)' ng-class='{activated: char.petrified}'><img src="public/assets/img/tokens/petrified.png" alt="petrified"></li>
+                  <li class="condition" ng-click='activate(char, 12)' ng-class='{activated: char.poisoned}'><img src="public/assets/img/tokens/poisoned.png" alt="poisoned"></li>
+                  <li class="condition" ng-click='activate(char, 13)' ng-class='{activated: char.prone}'><img src="public/assets/img/tokens/prone.png" alt="prone"></li>
+                  <li class="condition" ng-click='activate(char, 14)' ng-class='{activated: char.restrained}'><img src="public/assets/img/tokens/restrained.png" alt="restrained"></li>
+                  <li class="condition" ng-click='activate(char, 15)' ng-class='{activated: char.stunned}'><img src="public/assets/img/tokens/stunned.png" alt="stunned"></li>
+                  <li class="condition" ng-click='activate(char, 16)' ng-class='{activated: char.unconcious}'><img src="public/assets/img/tokens/unconcious.png" alt="unconcious"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </player>
+
+        <enemy ng-controller='enemyCtrl'>
+          <div class="enemyWrap">
+            <h2 id='columnNameEnemy'>Enemies</h2>
+            <br/>
+
+            <div id='enemyCharBar'>
+              <div id='enemyCopyCreator'>
+                <button class='btn btn-info copy enemyCopy' ng-click='addEnemyCopies(enemiesToAdd, appService.enemyChars)' character-copy-validator>Add copies</button>
+                <input id='enemyCopyInput' class='copyInput form-control' type="text" ng-model='enemiesToAdd' placeholder='#'>
+                <div id='enemyNoNumPopup'>Must enter a number of copies to be made</div>
+                <div id='enemyMissingPopup' class='popup'>No enemy to copy</div>
+              </div>
+
+              <button id='enemyClearBtn' class='btn btn-warning clearBtn' clear-confirm>Clear All</button>
+              <div id='enemyClearAllPopup' class='popup'>
+                <span>Are you sure that you want to clear all enemies?</span>
+                <div class='clearButtons'>
+                  <button class='btn btn-secondary' ng-click='clearAllEnemies()' hide-clear-popup>Clear</button>
+                  <button class='btn btn-warning' hide-clear-popup>Cancel</button>
+                </div>
+              </div>
+            </div>
+
+            <div class='enemyRow headerRow'>
+              <div class='th name'><p>Enemy Name</p></div>
+              <div class='th hp'><p>Hit Points</p></div>
+              <div class='th change'><p>Alter</p></div>
+              <div class='th dec'><p>Decrease</p></div>
+              <div class='th inc'><p>Increase</p></div>
+            </div>
+            <div class='enemies' ng-repeat='char in appService.enemyChars track by char.id'>
+              <div class="progress">
+                <div class="progress-bar healthBar" ng-class='{greenBar: (char.hitPoints / char.maxHp) > .65, yellowBar: (char.hitPoints / char.maxHp) <= .65, redBar: (char.hitPoints / char.maxHp) <= .3}' role="progressbar" style="width: {{(char.hitPoints / char.maxHp) * 100}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{((char.hitPoints / char.maxHp) * 100).toFixed(0)}}%</div>
+              </div>
+              <div class='enemyRow bodyRow'>
+                <div class='alert alert-warning enemyNumberPopup popup'>Must provide value</div>
+                <div class='td name'>
+                  <p char-input-focus>{{char.name}}</p>
+                  <input class='form-control enemyNameInput' ng-blur='checkValidName(char)' type="text" placeholder={{char.name}} ng-model='char.name' char-input-blur>
+                  <div class='alert alert-warning enemyNamePopup popup'>Must enter a name</div>
+                  <p char-input-focus class='armorClass'>AC: <span>{{char.armorClass}}</span></p>
+                  <input class='form-control enemyAcInput' ng-blur='checkValidAc(char)' type="number" placeholder={{char.armorClass}} ng-model='char.armorClass' char-input-blur>
+                </div>
+                <div class='td hp'>
+                  <p char-input-focus class='maxHp'>Max: {{char.maxHp}}</p>
+                  <input class='form-control enemyMaxHpInput' ng-blur='checkValidMaxHp(char)' type="number" placeholder={{char.maxHp}} ng-model='char.maxHp' char-input-blur>
+                  <p char-input-focus>{{char.hitPoints}}</p>
+                  <input class='form-control enemyHpInput' ng-blur='checkValidHp(char)' type="number" placeholder={{char.hitPoints}} ng-model='char.hitPoints' char-input-blur>
+                </div>
+                <div class='td change'>
+                    <button class='edit btn btn-secondary' edit-all>Edit All</button>
+                    <button class='edit btn btn-primary' ng-click='save(char)' save-all save-validation>Save</button>
+                    <button class='enemyDelete btn btn-warning' delete-confirm>Delete</button>
+                    <div class='enemyDeleteConfirm alert-warning popup'>
+                      <span>Are you sure you want to delete this character?</span>
+                      <div>
+                        <button class='btn btn-secondary' ng-click='deleteEnemy(char, appService.enemyChars)'>Ok</button>
+                        <button class='btn btn-danger' hide-delete-popup>Cancel</button>
+                      </div>
+                    </div>
+                </div>
+                <div class='td dec decCell'>
+                    <button class='btn btn-danger decOne' ng-click='decrement(char, 1)'>1</button>
+                    <button class='btn btn-danger decTwo' ng-click='decrement(char, 5)'>5</button>
+                    <button class='btn btn-danger decThree' ng-click='decrement(char, 10)'>10</button>
+                    <button class='btn btn-danger decFour' ng-click='decrement(char, 20)'>20</button>
+                </div>
+                <div class='td inc incCell'>
+                    <button class='btn btn-success incOne' ng-click='increment(char, 1)'>1</button>
+                    <button class='btn btn-success incTwo' ng-click='increment(char, 5)'>5</button>
+                    <button class='btn btn-success incThree' ng-click='increment(char, 10)'>10</button>
+                    <button class='btn btn-success incFour' ng-click='increment(char, 20)'>20</button>
+                </div>
+              </div>
+              <div class='conditionWrap'>
+                <ul class='conditions'>
+                  <li class="condition" ng-click='activate(char, 0)' ng-class='{activated: char.blinded}'><img src="public/assets/img/tokens/blinded.png" alt="blinded"></li>
+                  <li class="condition" ng-click='activate(char, 1)' ng-class='{activated: char.charmed}'><img src="public/assets/img/tokens/charmed.png" alt="charmed"></li>
+                  <li class="condition" ng-click='activate(char, 2)' ng-class='{activated: char.deafened}'><img src="public/assets/img/tokens/deafened.png" alt="deafened"></li>
+                  <li class="condition" ng-click='activate(char, 3)' ng-class='{activated: char.dodge}'><img src="public/assets/img/tokens/dodge.png" alt="dodge"></li>
+                  <li class="condition" ng-click='activate(char, 4)' ng-class='{activated: char.exhausted}'><img src="public/assets/img/tokens/exhausted.png" alt="exhausted"></li>
+                  <li class="condition" ng-click='activate(char, 5)' ng-class='{activated: char.frightened}'><img src="public/assets/img/tokens/frightened.png" alt="frightened"></li>
+                  <li class="condition" ng-click='activate(char, 6)' ng-class='{activated: char.grappled}'><img src="public/assets/img/tokens/grappled.png" alt="grappled"></li>
+                  <li class="condition" ng-click='activate(char, 7)' ng-class='{activated: char.hidden}'><img src="public/assets/img/tokens/hidden.png" alt="hidden"></li>
+                  <li class="condition" ng-click='activate(char, 8)' ng-class='{activated: char.incapacitated}'><img src="public/assets/img/tokens/incapacitated.png" alt="incapacitated"></li>
+                  <li class="condition" ng-click='activate(char, 9)' ng-class='{activated: char.invisible}'><img src="public/assets/img/tokens/invisible.png" alt="invisible"></li>
+                  <li class="condition" ng-click='activate(char, 10)' ng-class='{activated: char.paralyzed}'><img src="public/assets/img/tokens/paralyzed.png" alt="paralyzed"></li>
+                  <li class="condition" ng-click='activate(char, 11)' ng-class='{activated: char.petrified}'><img src="public/assets/img/tokens/petrified.png" alt="petrified"></li>
+                  <li class="condition" ng-click='activate(char, 12)' ng-class='{activated: char.poisoned}'><img src="public/assets/img/tokens/poisoned.png" alt="poisoned"></li>
+                  <li class="condition" ng-click='activate(char, 13)' ng-class='{activated: char.prone}'><img src="public/assets/img/tokens/prone.png" alt="prone"></li>
+                  <li class="condition" ng-click='activate(char, 14)' ng-class='{activated: char.restrained}'><img src="public/assets/img/tokens/restrained.png" alt="restrained"></li>
+                  <li class="condition" ng-click='activate(char, 15)' ng-class='{activated: char.stunned}'><img src="public/assets/img/tokens/stunned.png" alt="stunned"></li>
+                  <li class="condition" ng-click='activate(char, 16)' ng-class='{activated: char.unconcious}'><img src="public/assets/img/tokens/unconcious.png" alt="unconcious"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </enemy>
+      </div>
+      
+    </characters>
   </body>
   <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js'></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  <script src='public/app/app.js'></script>
-  <script src='public/app/services/app.service.js'></script>
-  <script src='public/app/controllers/adder.controller.js'></script>
-  <script src='public/app/controllers/character.controller.js'></script>
-  <script src='public/app/controllers/enemy.controller.js'></script>
-  <script src='public/app/controllers/initiative.controller.js'></script>
-  <script src='public/app/controllers/player.controller.js'></script>
-  <script src='public/app/directives/attribute-directives/adderValidator.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/characterCopyValidator.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/charInputBlur.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/charInputFocus.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/clearConfirm.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/deleteConfirm.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/editAll.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/hideClearPopup.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/hideDeletePopup.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/initInputFocus.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/saveAll.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/saveValidation.directive.js'></script>
-  <script src='public/app/directives/attribute-directives/stopPropagation.directive.js'></script>
-  <script src='public/app/directives/element-directives/adder.directive.js'></script>
-  <script src='public/app/directives/element-directives/character.directive.js'></script>
-  <script src='public/app/directives/element-directives/enemy.directive.js'></script>
-  <script src='public/app/directives/element-directives/initiative.directive.js'></script>
-  <script src='public/app/directives/element-directives/player.directive.js'></script>
-</html> -->
+  <script src='public/build/main.min.js'></script>
+</html>
