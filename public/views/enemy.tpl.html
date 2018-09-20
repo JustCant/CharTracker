@@ -27,9 +27,9 @@
     <div class='th dec'><p>Decrease</p></div>
     <div class='th inc'><p>Increase</p></div>
   </div>
-  <div class='enemies' ng-repeat='char in appService.enemyChars track by char.id'>
+  <div class='enemies' ng-repeat='char in appService.enemyChars track by char.id' ng-class="{advantage: char.advantage, disadvantage: char.disadvantage}">
     <div class="progress">
-      <div class="progress-bar healthBar" ng-class='{greenBar: (char.hitPoints / char.maxHp) > .65, yellowBar: (char.hitPoints / char.maxHp) <= .65, redBar: (char.hitPoints / char.maxHp) <= .3}' role="progressbar" style="width: {{(char.hitPoints / char.maxHp) * 100}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{((char.hitPoints / char.maxHp) * 100).toFixed(0)}}%</div>
+      <div class="progress-bar progress-bar-striped progress-bar-animated healthBar" ng-class='{greenBar: (char.hitPoints / char.maxHp) > .65, yellowBar: (char.hitPoints / char.maxHp) <= .65, redBar: (char.hitPoints / char.maxHp) <= .3}' role="progressbar" style="width: {{(char.hitPoints / char.maxHp) * 100}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{((char.hitPoints / char.maxHp) * 100).toFixed(0)}}%</div>
     </div>
     <div class='enemyRow bodyRow'>
       <div class='alert alert-warning enemyNumberPopup popup'>Must provide value</div>
@@ -73,6 +73,25 @@
     </div>
     <div class='conditionWrap'>
       <ul class='conditions'>
+        <li class="condition" ng-click='activate(char, 0)' ng-class='{activated: char.blinded}'><img src="../assets/img/tokens/blinded.png" alt="blinded" data-toggle="tooltip" data-placement="top" title="Blinded"></li>
+        <li class="condition" ng-click='activate(char, 1)' ng-class='{activated: char.charmed}'><img src="../assets/img/tokens/charmed.png" alt="charmed" data-toggle="tooltip" data-placement="top" title="Charmed"></li>
+        <li class="condition" ng-click='activate(char, 2)' ng-class='{activated: char.deafened}'><img src="../assets/img/tokens/deafened.png" alt="deafened" data-toggle="tooltip" data-placement="top" title="Deafened"></li>
+        <li class="condition" ng-click='activate(char, 3)' ng-class='{activated: char.dodge}'><img src="../assets/img/tokens/dodge.png" alt="dodge" data-toggle="tooltip" data-placement="top" title="Dodge"></li>
+        <!-- <li class="condition" ng-click='activate(char, 4)' ng-class='{activated: char.exhausted}'><img src="../assets/img/tokens/exhausted.png" alt="exhausted"></li> -->
+        <li class="condition" ng-click='activate(char, 5)' ng-class='{activated: char.frightened}'><img src="../assets/img/tokens/frightened.png" alt="frightened" data-toggle="tooltip" data-placement="top" title="Frightened"></li>
+        <li class="condition" ng-click='activate(char, 6)' ng-class='{activated: char.grappled}'><img src="../assets/img/tokens/grappled.png" alt="grappled" data-toggle="tooltip" data-placement="top" title="Grappled"></li>
+        <!-- <li class="condition" ng-click='activate(char, 7)' ng-class='{activated: char.hidden}'><img src="../assets/img/tokens/hidden.png" alt="hidden"></li> -->
+        <li class="condition" ng-click='activate(char, 8)' ng-class='{activated: char.incapacitated}'><img src="../assets/img/tokens/incapacitated.png" alt="incapacitated" data-toggle="tooltip" data-placement="top" title="Incapacitated"></li>
+        <li class="condition" ng-click='activate(char, 9)' ng-class='{activated: char.invisible}'><img src="../assets/img/tokens/invisible.png" alt="invisible" data-toggle="tooltip" data-placement="top" title="Invisible"></li>
+        <li class="condition" ng-click='activate(char, 10)' ng-class='{activated: char.paralyzed}'><img src="../assets/img/tokens/paralyzed.png" alt="paralyzed" data-toggle="tooltip" data-placement="top" title="Paralyzed"></li>
+        <li class="condition" ng-click='activate(char, 11)' ng-class='{activated: char.petrified}'><img src="../assets/img/tokens/petrified.png" alt="petrified" data-toggle="tooltip" data-placement="top" title="Petrified"></li>
+        <li class="condition" ng-click='activate(char, 12)' ng-class='{activated: char.poisoned}'><img src="../assets/img/tokens/poisoned.png" alt="poisoned" data-toggle="tooltip" data-placement="top" title="Poisoned"></li>
+        <li class="condition" ng-click='activate(char, 13)' ng-class='{activated: char.prone}'><img src="../assets/img/tokens/prone.png" alt="prone" data-toggle="tooltip" data-placement="top" title="Prone"></li>
+        <li class="condition" ng-click='activate(char, 14)' ng-class='{activated: char.restrained}'><img src="../assets/img/tokens/restrained.png" alt="restrained" data-toggle="tooltip" data-placement="top" title="Restrained"></li>
+        <li class="condition" ng-click='activate(char, 15)' ng-class='{activated: char.stunned}'><img src="../assets/img/tokens/stunned.png" alt="stunned" data-toggle="tooltip" data-placement="top" title="Stunned"></li>
+        <li class="condition" ng-click='activate(char, 16)' ng-class='{activated: char.unconscious}'><img src="../assets/img/tokens/unconscious.png" alt="unconscious" data-toggle="tooltip" data-placement="top" title="unconscious"></li>
+        <li class="condition" ng-click='activate(char, 17)' ng-class='{activated: char.advantage}'><img src="../assets/img/tokens/advantage.png" alt="advantage" data-toggle="tooltip" data-placement="top" title="Advantage"></li>
+        <li class="condition" ng-click='activate(char, 18)' ng-class='{activated: char.disadvantage}'><img src="../assets/img/tokens/disadvantage.png" alt="disadvantage" data-toggle="tooltip" data-placement="top" title="Disadvantage"></li>
       </ul>
     </div>
   </div>
