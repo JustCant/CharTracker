@@ -103,7 +103,7 @@
               <div class='th dec'><p>Decrease</p></div>
               <div class='th inc'><p>Increase</p></div>
             </div>
-            <div class='players' ng-repeat='char in appService.playerChars track by char.id'>
+            <div class='players' ng-class="{advantage: char.advantage, disadvantage: char.disadvantage}" ng-repeat='char in appService.playerChars track by char.id'>
               <div class="progress">
                 <div class="progress-bar healthBar" ng-class='{greenBar: (char.hitPoints / char.maxHp) > .65, yellowBar: (char.hitPoints / char.maxHp) <= .65, redBar: (char.hitPoints / char.maxHp) <= .3}' role="progressbar" style="width: {{(char.hitPoints / char.maxHp) * 100}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{((char.hitPoints / char.maxHp) * 100).toFixed(0)}}%</div>
               </div>
@@ -204,7 +204,7 @@
               <div class='th dec'><p>Decrease</p></div>
               <div class='th inc'><p>Increase</p></div>
             </div>
-            <div class='enemies' ng-repeat='char in appService.enemyChars track by char.id'>
+            <div class='enemies' ng-class="{advantage: char.advantage, disadvantage: char.disadvantage}" ng-repeat='char in appService.enemyChars track by char.id'>
               <div class="progress">
                 <div class="progress-bar healthBar" ng-class='{greenBar: (char.hitPoints / char.maxHp) > .65, yellowBar: (char.hitPoints / char.maxHp) <= .65, redBar: (char.hitPoints / char.maxHp) <= .3}' role="progressbar" style="width: {{(char.hitPoints / char.maxHp) * 100}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{((char.hitPoints / char.maxHp) * 100).toFixed(0)}}%</div>
               </div>
